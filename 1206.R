@@ -116,6 +116,15 @@ needed_txt[intrested_pos]
 needed_link = needed_html[intrested_pos] %>% html_attr("href") #得到文章連結
 
 
+#想要知道某篇文章的基本資料
+#他們都被span標籤給抓到，但跟span有關的有太多了，但有一個特殊的class叫做article-meta-value
+i = 1
+sub_link = paste("https://www.ptt.cc", needed_link[i], sep = "")
+sub_website = read_html(sub_link) 
+
+article_info = sub_website %>% html_nodes(".article-meta-value")
+article_info
+
 
 
 
