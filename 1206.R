@@ -81,3 +81,40 @@ NTU_info = function () {
 }
 
 NTU_info()
+#==========================================
+
+#用「rvest」套件來自動擷取想要的資訊
+#函數「html_nodes」:能把某種標籤的文字萃取出來
+#「html_text」:能把標籤通通去掉
+
+library(rvest)
+
+URL = "https://reg.ntuh.gov.tw/EmgInfoBoard/NTUHEmgInfo.aspx"
+
+website = read_html(URL) #「read_html」:能讀取網頁
+
+needed_txt = website %>% html_nodes("tr") %>% html_text() 
+needed_txt
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
