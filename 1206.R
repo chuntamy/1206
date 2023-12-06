@@ -16,3 +16,30 @@ end.TITLE.pos = start.TITLE.pos + attr(TITLE.pos[[1]], "match.length")[1] - 1 #�
 TITLE.word = substr(txt_new, start.TITLE.pos, end.TITLE.pos) #擷取出從開始到結束處
 
 TITLE.word
+
+
+#用函數「gsub」取得乾淨一點的標題
+TITLE.word = gsub("<title>", "", TITLE.word)
+TITLE.word = gsub("</title>", "", TITLE.word)
+TITLE.word
+
+
+
+#想抓到「等候掛號人數：」後面的人數
+#因為以tr結尾的有非常多，所以必須分開抓取，無法使用正則表達式
+start.pos = gregexpr("<tr>", txt_new) #找出所有為<tr>開頭
+end.pos = gregexpr("</tr>", txt_new)  #找出所有為</tr>結尾
+
+i = 1 #<tr>開頭第一個為何?
+sub.start.pos = start.pos[[1]][i] #<tr>開頭第一個位置
+sub.end.pos = end.pos[[1]][i] + attr(end.pos[[1]], "match.length")[i] - 1 #<tr>開頭第一個結尾位置
+
+sub_txt = substr(txt_new, sub.start.pos, sub.end.pos) #擷取出 <tr>開頭第一個 從開始到結束處
+sub_txt 
+
+#只擷取出人數
+sub_txt = gsub('等候掛號人數：', '', sub_txt)
+sub_txt = gsub('</?tr>', '', sub_txt)
+sub_txt = gsub('</?td>', '', sub_txt)
+sub_txt = gsub(' ', '', sub_txt)
+sub_txt
